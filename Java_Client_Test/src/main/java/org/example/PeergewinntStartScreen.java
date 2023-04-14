@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class PeergewinntStartScreen extends JFrame implements ActionListener {
     private JLabel titleLabel;
     private JButton hostButton, searchButton;
     private JPanel buttonPanel;
+    private ArrayList<GameRoom> gameRooms = new ArrayList<GameRoom>();
 
     public PeergewinntStartScreen() {
         super("Peergewinnt");
@@ -65,14 +67,18 @@ public class PeergewinntStartScreen extends JFrame implements ActionListener {
                 // Print the port number to the console
                 System.out.println("Game room created on port " + serverSocket.getLocalPort());
 
-                // Wait for a client to connect
-                Socket clientSocket = serverSocket.accept();
+                // Add the game room to the list
+                GameRoom gameRoom = new GameRoom(InetAddress.getLocalHost().getHostAddress(),
+                        serverSocket.getLocalPort());
+                gameRooms.add(gameRoom);
 
-                // Handle the client connection
-                // ...
+                // Start a thread to handle incoming connections
+                Thread connectionThread = new Thread(new ConnectionHandler(serverSocket));
+                connectionThread.start();
 
-                // Close the server socket
-                serverSocket.close();
+                // Update the title label to show the game room address and port
+                titleLabel.setText("<html><b>Game room hosted on "
+                        + gameRoom.getAddress() + ":" + gameRoom.getPort() + "</b></html>");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -84,44 +90,93 @@ public class PeergewinntStartScreen extends JFrame implements ActionListener {
                 InetAddress group = InetAddress.getByName("230.0.0.0");
                 multicastSocket.joinGroup(group);
 
-                // Receive the list of game rooms
-                byte[] buf = new byte[256];
-                DatagramPacket packet = new DatagramPacket(buf, buf.length);
-                multicastSocket.receive(packet);
-                String[] gameRooms = new String(buf).split(",");
+                // Send a discovery message to the multicast group
+                byte[] buf = "DISCOVER".getBytes();
+                DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
+                multicastSocket.send(packet);
+                // Wait for responses from game rooms
+                byte[] responseBuf = new byte[256];
+                while (true) {
+                    DatagramPacket responsePacket = new DatagramPacket(responseBuf, responseBuf.length);
+                    multicastSocket.receive(responsePacket);
+                    String response = new String(responsePacket.getData(), 0, responsePacket.getLength());
 
-                // Display the list of game rooms in a dialog box
-                String selectedGameRoom = (String) JOptionPane.showInputDialog(
-                        PeergewinntStartScreen.this,
-                        "Select a game room to join:",
-                        "Search for Game Rooms",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        gameRooms,
-                        gameRooms[0]);
-
-                // Join the selected game room
-                if (selectedGameRoom != null) {
-                    // Connect to the selected game room
-                    String[] parts = selectedGameRoom.split(":");
-                    String host = parts[0];
-                    int port = Integer.parseInt(parts[1]);
-                    Socket socket = new Socket(host, port);
-
-                    // Handle the connection to the game room
-                    // ...
+                    // Parse the response and add the game room to the list
+                    String[] parts = response.split(":");
+                    if (parts.length == 2) {
+                        String address = parts[0];
+                        int port = Integer.parseInt(parts[1]);
+                        GameRoom gameRoom = new GameRoom(address, port);
+                        gameRooms.add(gameRoom);
+                    }
                 }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-                // Leave the multicast group and close the socket
-                multicastSocket.leaveGroup(group);
-                multicastSocket.close();
+            // Create a dialog to display the available game rooms
+            JDialog dialog = new JDialog(this, "Available game rooms", true);
+            JPanel panel = new JPanel(new GridLayout(gameRooms.size(), 1, 0, 10));
+            for (GameRoom gameRoom : gameRooms) {
+                JButton button = new JButton(gameRoom.getAddress() + ":" + gameRoom.getPort());
+                button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // Code to connect to the selected game room goes here
+                        try {
+                            Socket socket = new Socket(gameRoom.getAddress(), gameRoom.getPort());
+                            System.out.println("Connected to game room at " + socket.getRemoteSocketAddress());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                panel.add(button);
+            }
+            dialog.getContentPane().add(panel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+        }
+    }
+
+    private static class GameRoom {
+        private String address;
+        private int port;
+
+        public GameRoom(String address, int port) {
+            this.address = address;
+            this.port = port;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public int getPort() {
+            return port;
+        }
+    }
+
+    private static class ConnectionHandler implements Runnable {
+        private ServerSocket serverSocket;
+
+        public ConnectionHandler(ServerSocket serverSocket) {
+            this.serverSocket = serverSocket;
+        }
+
+        public void run() {
+            try {
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    System.out.println("Connection from " + socket.getRemoteSocketAddress());
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
-        public static void main(String[] args) {
-        new PeergewinntStartScreen();
+    public static void main(String[] args) {
+        PeergewinntStartScreen startScreen = new PeergewinntStartScreen();
     }
 }
