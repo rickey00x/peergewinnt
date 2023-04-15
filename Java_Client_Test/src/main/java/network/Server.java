@@ -17,34 +17,48 @@ public class Server implements Runnable {
         String line = "";
         PrintWriter out = null;
         BufferedReader in = null;
-        BufferedReader stdIn = null;
 
         try {
             this.serverSocket = new ServerSocket(this.portNumber);
         } catch (IOException e) {
-            System.out.println("Could not listen on port");
+            System.out.println("Could not listen on port: " + this.portNumber);
         }
 
+        System.out.println("Server started");
         try {
-            clientSocket = serverSocket.accept();
+            System.out.println("Waiting for client");
+            this.clientSocket = serverSocket.accept();
+
         } catch (IOException e) {
-            System.out.println("Accept failed");
+            System.out.println("Accept failed: " );
         }
+
+        System.out.println("Client connected");
 
         try {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (IOException e) {
-            System.out.println("Read failed");
+            System.out.println("Couldn't get I/O for the connection to: " + this.hostName);
         }
 
         while (!serverSocket.isClosed()) {
-
+            out.println("Hello from server");
             try {
+
                 line = in.readLine();
-                if(line != null)
-                    System.out.println("line: " + line);
-                out.println(line + " from server");
+                if(line != null){
+                    System.out.println("In on Server: " + line);
+                    out.println(line + " from server");
+
+                    if(line.equals("tschüss")){
+                        out.close();
+                        in.close();
+                        clientSocket.close();
+                        serverSocket.close();
+                    }
+                }
+
 
             } catch (IOException e) {
                 System.out.println("Read failed");
@@ -53,15 +67,5 @@ public class Server implements Runnable {
 
         }
 
-    }
-
-    protected void finalize() {
-//Objects created in run method are finalized when
-//program terminates and thread exits
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            System.out.println("Could not close socket");
-        }
     }
 }

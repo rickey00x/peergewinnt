@@ -9,8 +9,8 @@ public class Main {
         Thread s = new Thread(srv);
         s.start();
 
-        //Thread c = new Thread(clt);
-        //c.start();
+        Thread c = new Thread(clt);
+        c.start();
 
 
     }

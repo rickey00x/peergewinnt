@@ -18,29 +18,51 @@ public class Client implements Runnable{
     }
 
     public void run(){
-        String line;
-        PrintWriter out = null;
+PrintWriter out = null;
         BufferedReader in = null;
         BufferedReader stdIn = null;
-        try{
-            if(clientSocket == null)
-                this.clientSocket = new Socket(this.hostName, this.portNumber);
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out.println("Hello");
 
-
-            }catch (UnknownHostException e) {
-                System.out.println("Don't know about host");
-            }catch (IOException e) {
-                System.out.println("in or out failed");
-            }
-
-        try{
-            clientSocket.close();
-        }catch (IOException e) {
-            System.out.println("Couldn't close socket");
+        try {
+            this.clientSocket = new Socket(this.hostName, this.portNumber);
+        } catch (UnknownHostException e) {
+            System.out.println("Don't know about host: " + this.hostName);
+        } catch (IOException e) {
+            System.out.println("Couldn't get I/O for the connection to: " + this.hostName);
         }
 
+        System.out.println("Client started");
+
+        try {
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            stdIn = new BufferedReader(new InputStreamReader(System.in));
+        } catch (IOException e) {
+            System.out.println("Couldn't get I/O for the connection to: " + this.hostName);
+        }
+
+        String fromServer;
+        String fromUser;
+
+        while (!clientSocket.isClosed()) {
+            try {
+                fromServer = in.readLine();
+                if(fromServer != null) {
+                    System.out.println("In on Client: " + fromServer);
+                    out.println("Hello from client");
+                }
+            } catch (IOException e) {
+                System.out.println("Read failed");
+            }
+
+            try {
+                out.println("tschüss");
+                out.close();
+                in.close();
+                clientSocket.close();
+            } catch (IOException e) {
+                System.out.println("Couldn't close I/O");
+
+            }
+        }
     }
 }
