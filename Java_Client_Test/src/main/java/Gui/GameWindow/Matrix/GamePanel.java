@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     GameMatrixInput input;
-    GameMatrix matrix;
+    public GameMatrix matrix;
 
     public GamePanel() {
         setLayout(new BorderLayout());

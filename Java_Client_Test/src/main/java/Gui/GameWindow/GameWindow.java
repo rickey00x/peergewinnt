@@ -7,12 +7,14 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class GameWindow extends JPanel {
+    public GamePanel gamePanel;
     public GameWindow() {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         JPanel sideBar = new SideBar();
-        JPanel gamePanel = new GamePanel();
+        gamePanel = new GamePanel();
         add(sideBar,BorderLayout.WEST);
         add(gamePanel,BorderLayout.CENTER);
+
     }
 }

@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Game {
 
-    PlayingField playingField;
-    Player playerOne;
-    Player playerTwo;
-    Player currentPlayer;
-    boolean gameOver;
-    List<Observer> observers;
+    private final PlayingField playingField;
+    private final Player playerOne;
+    private final Player playerTwo;
+    private Player currentPlayer;
+    private boolean gameOver;
+    private final List<Observer> observers;
     public Game(String namePlayerOne, String namePlayerTwo) {
         playerOne = new Player(namePlayerOne,Token.X);
         playerTwo = new Player(namePlayerTwo,Token.O);

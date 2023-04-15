@@ -9,12 +9,12 @@ public class PlayingField {
     //Does Playingfield need to know who won?
 
     public PlayingField() {
-        matrix = new Token[7][6];
+        matrix = new Token[6][7];
         setupMatrix();
     }
 
     public boolean makeMove(Token token, int row){
-        for(int i=0;i<6;i++){
+        for(int i = 5; i >= 0; i--){
             if(matrix[i][row]!= Token.NONE) continue;
             matrix[i][row] = token;
             return true;
