@@ -1,9 +1,9 @@
-package Gui;
-
 import Gui.GameWindow.GameWindow;
 import model.Game;
 import model.InvalidMoveException;
 import model.Token;
+import network.Client;
+import network.Server;
 
 import javax.swing.*;
 
@@ -36,5 +36,6 @@ public class App {
         }
         mainWindow.gamePanel.matrix.updateMatrix(game.getPlayingField());
     }
+
 
 }

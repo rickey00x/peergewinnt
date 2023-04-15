@@ -38,7 +38,7 @@ public class Server implements Runnable {
             System.out.println("Read failed");
         }
 
-        while (true) {
+        while (!serverSocket.isClosed()) {
 
             try {
                 line = in.readLine();
