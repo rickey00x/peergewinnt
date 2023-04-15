@@ -23,10 +23,10 @@ public class Game {
     public void subscribe(Observer observer){
         observers.add(observer);
     }
-    public void move(int row) throws InvalidMoveException{
+    public void move(int col) throws InvalidMoveException{
         if(gameOver) throw new InvalidMoveException("Cant make a move, the game has ended");
-        if(!playingField.makeMove(currentPlayer.getToken(),row)){
-            throw new InvalidMoveException("Row already full!");
+        if(!playingField.makeMove(currentPlayer.getToken(),col)){
+            throw new InvalidMoveException("Column already full!");
         }
         if(playingField.connectedFour()){
             notifyOberserversGameOver();
