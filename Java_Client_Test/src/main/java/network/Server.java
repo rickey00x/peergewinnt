@@ -42,14 +42,15 @@ public class Server implements Runnable {
 
             try {
                 line = in.readLine();
+                if(line != null)
+                    System.out.println("line: " + line);
                 out.println(line + " from server");
-
 
             } catch (IOException e) {
                 System.out.println("Read failed");
             }
 
-            System.out.println("line: " + line);
+
         }
 
     }

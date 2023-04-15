@@ -33,11 +33,17 @@ public class Client implements Runnable{
                 out.println("Test string from client "+ i);
                 line = in.readLine();
                 System.out.println("Client line: " + line);
+
             }catch (UnknownHostException e) {
                 System.out.println("Don't know about host");
             }catch (IOException e) {
                 System.out.println("in or out failed");
             }
+        }
+        try{
+            clientSocket.close();
+        }catch (IOException e) {
+            System.out.println("Couldn't close socket");
         }
 
     }
