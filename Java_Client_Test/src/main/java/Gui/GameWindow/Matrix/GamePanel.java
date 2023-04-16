@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
-    GameMatrixInput input;
+    public GameMatrixInput input;
     public GameMatrix matrix;
 
     public GamePanel() {
