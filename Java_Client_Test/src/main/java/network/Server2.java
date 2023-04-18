@@ -57,7 +57,10 @@ public class Server2 implements Runnable, ButtonObserver {
                     DTOToServer ans = (DTOToServer) in.readObject();
                     game.move(ans.row());
                     gameWindow.updateMatrix(game.getPlayingField());
+                    sendUpdatetoClient(false);
                 } catch (Exception e) {
+                    String msg =e.getMessage();
+                    msg.length();
                     //throw new RuntimeException(e);
                 }
             }

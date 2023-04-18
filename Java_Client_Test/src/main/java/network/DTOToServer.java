@@ -1,4 +1,6 @@
 package network;
 
-public record DTOToServer(int row) {
+import java.io.Serializable;
+
+public record DTOToServer(int row) implements Serializable {
 }

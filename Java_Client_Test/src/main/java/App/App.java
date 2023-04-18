@@ -23,13 +23,13 @@ public class App implements AppStarter {
 
     public void startServer(){
         mainFrame.remove(start);
-        Game game = new Game("player 1","player 2");
-        Server2 server = new Server2(gameWindow);
         gameWindow = new GameWindow();
-        gameWindow.setActive(false);
+        Server2 server = new Server2(gameWindow);
+        gameWindow.subscribeToButtons(server);
+        Thread serverThread= new Thread(server);
         mainFrame.add(gameWindow);
         mainFrame.pack();
-        gameWindow.updateMatrix(game.getPlayingField());
+        serverThread.start();
     }
 
     public void startClient(){
