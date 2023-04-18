@@ -9,10 +9,11 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         setLayout(new BorderLayout());
-        input = new GameMatrixInput();
-        add(input,BorderLayout.NORTH);
         matrix = new GameMatrix();
         add(matrix,BorderLayout.CENTER);
+        input = new GameMatrixInput();
+        add(input,BorderLayout.NORTH);
+
 
     }
 }

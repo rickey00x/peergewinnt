@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         int port = 6602;
         Server srv = new Server(port);
-        Client clt = new Client(port, "192.168.1.136");
+        Client clt = new Client(port, "127.0.0.1");
 
         Thread s = new Thread(srv);
         s.start();

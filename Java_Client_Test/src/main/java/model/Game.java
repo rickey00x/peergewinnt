@@ -9,7 +9,7 @@ public class Game {
     private final Player playerOne;
     private final Player playerTwo;
     private Player currentPlayer;
-    private boolean gameOver;
+    public boolean gameOver;
     private final List<Observer> observers;
     public Game(String namePlayerOne, String namePlayerTwo) {
         playerOne = new Player(namePlayerOne,Token.X);

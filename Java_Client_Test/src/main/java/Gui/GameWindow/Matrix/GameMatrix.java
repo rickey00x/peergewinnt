@@ -9,9 +9,9 @@ import java.awt.*;
 public class GameMatrix extends JPanel implements Renderer {
     JLabel[] labels;
 
-    final ImageIcon red = new ImageIcon(new ImageIcon("Images/red.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-    final ImageIcon blue = new ImageIcon(new ImageIcon("Images/blue.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-    final ImageIcon empty = new ImageIcon(new ImageIcon("Images/empty.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    final ImageIcon red = new ImageIcon(new ImageIcon("Java_Client_Test/Images/red.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    final ImageIcon blue = new ImageIcon(new ImageIcon("Java_Client_Test/Images/blue.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+    final ImageIcon empty = new ImageIcon(new ImageIcon("Java_Client_Test/Images/empty.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 
     public GameMatrix() {
         setLayout(new GridLayout(6,7));
