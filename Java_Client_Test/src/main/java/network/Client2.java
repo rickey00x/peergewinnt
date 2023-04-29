@@ -14,7 +14,7 @@ public class Client2 implements Runnable, ButtonObserver {
     boolean keepAlive;
     boolean receivedMsg;
     int lastUserAction = -1;
-    private String hostName = "localhost";
+    private String hostName = "192.168.1.144";
     private int portNumber = 6602;
     private Socket clientSocket;
     private ObjectInputStream in;
@@ -50,7 +50,7 @@ public class Client2 implements Runnable, ButtonObserver {
                 if (msg.sendAnswer()) {
                     gameWindow.setActive(true);
                     while (true) {
-                        if (lastUserAction != -1) {
+                        if (lastUserAction == -1) {
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {

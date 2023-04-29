@@ -68,6 +68,7 @@ public class Server2 implements Runnable, ButtonObserver {
     }
 
     private void sendUpdatetoClient(boolean ans) throws IOException {
+        out.reset();
         out.writeObject(new DTOToClient(ans,game.gameOver,game.getPlayingField()));
     }
 
