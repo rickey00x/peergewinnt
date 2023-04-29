@@ -20,24 +20,39 @@ public class Server2 implements Runnable, ButtonObserver {
     private ObjectInputStream in;
     private Game game;
     private GameWindow gameWindow;
-    private String server;
-    private int lastMove=-1;
+    private String serverId;
+    private int lastMove = -1;
+    private boolean keepAlive;
 
     public Server2(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
-        JOptionPane.showConfirmDialog(gameWindow,"Waiting for clients...");
+        keepAlive = true;
+        JOptionPane.showConfirmDialog(gameWindow, "Waiting for clients...");
         setupConnection();
-        server = "You";
-        game = new Game(server, "Name");
+        serverId = "You";
+        game = new Game(serverId, "The other guy");
     }
 
     @Override
     public void run() {
-        while (!game.gameOver){
+        while (keepAlive) {
+            if(game.gameOver){
+                try {
+                    sendUpdatetoClient(false);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                if(JOptionPane.showConfirmDialog(gameWindow,"Game over"+ game.getCurrentPlayer() +" won. Want to play again?","Confirm",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                    game.resetGame();
+                    gameWindow.updateMatrix(game.getPlayingField());
+                }else{
+                    keepAlive = false;
+                }
+            }
             gameWindow.updateMatrix(game.getPlayingField());
-            if(game.getCurrentPlayer().equalsIgnoreCase(server)){
+            if (game.getCurrentPlayer().equalsIgnoreCase(serverId)) {
                 gameWindow.setActive(true);
-                while (lastMove==-1){
+                while (lastMove == -1) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException ignored) {
@@ -46,29 +61,27 @@ public class Server2 implements Runnable, ButtonObserver {
                 }
                 try {
                     game.move(lastMove);
-                    lastMove=-1;
+                    lastMove = -1;
                     gameWindow.setActive(false);
                 } catch (InvalidMoveException e) {
-                    JOptionPane.showConfirmDialog(gameWindow,e.getMessage());
+                    JOptionPane.showConfirmDialog(gameWindow, e.getMessage());
                 }
-            }else{
+            } else {
                 try {
                     sendUpdatetoClient(true);
                     DTOToServer ans = (DTOToServer) in.readObject();
                     game.move(ans.row());
                     gameWindow.updateMatrix(game.getPlayingField());
                     sendUpdatetoClient(false);
-                } catch (Exception e) {
-                    String msg =e.getMessage();
-                    msg.length();
-                    //throw new RuntimeException(e);
+                } catch (Exception ignored) {
                 }
             }
         }
     }
 
     private void sendUpdatetoClient(boolean ans) throws IOException {
-        out.writeObject(new DTOToClient(ans,game.gameOver,game.getPlayingField()));
+        out.reset();
+        out.writeObject(new DTOToClient(ans, game.gameOver, game.getPlayingField()));
     }
 
     private void setupConnection() {
@@ -84,6 +97,6 @@ public class Server2 implements Runnable, ButtonObserver {
 
     @Override
     public void notify(int selection) {
-        lastMove=selection;
+        lastMove = selection;
     }
 }
