@@ -12,9 +12,8 @@ public class Client2 implements Runnable, ButtonObserver {
 
     GameWindow gameWindow;
     boolean keepAlive;
-    boolean receivedMsg;
     int lastUserAction = -1;
-    private String hostName = "192.168.1.144";
+    private String hostName = "192.168.0.224";
     private int portNumber = 6602;
     private Socket clientSocket;
     private ObjectInputStream in;
@@ -24,7 +23,6 @@ public class Client2 implements Runnable, ButtonObserver {
         setUpConnection();
         this.gameWindow = gameWindow;
         keepAlive = true;//set this to false once the connection is close
-        receivedMsg = false;//set this to true once a new unprocessed msg was received
     }
 
     private void setUpConnection() {
@@ -66,7 +64,7 @@ public class Client2 implements Runnable, ButtonObserver {
 
                 }
             } catch (Exception e) {
-
+                String thing = e.getMessage();
             }
         }
     }
