@@ -13,13 +13,14 @@ public class Client2 implements Runnable, ButtonObserver {
     GameWindow gameWindow;
     boolean keepAlive;
     int lastUserAction = -1;
-    private String hostName = "192.168.1.144";
+    private String hostName;
     private int portNumber = 6602;
     private Socket clientSocket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-    public Client2(GameWindow gameWindow) {
+    public Client2(GameWindow gameWindow, String hostName) {
+        this.hostName = hostName;
         setUpConnection();
         this.gameWindow = gameWindow;
         keepAlive = true;//set this to false once the connection is close
@@ -42,10 +43,8 @@ public class Client2 implements Runnable, ButtonObserver {
                 DTOToClient msg = (DTOToClient) in.readObject();
                 gameWindow.updateMatrix(msg.matrix());
                 if (msg.gameOver()) {
-                    if(JOptionPane.CANCEL_OPTION==JOptionPane.showConfirmDialog(gameWindow,"Game over, waiting for Host...","Headline",JOptionPane.OK_CANCEL_OPTION))
-                    {
-                        keepAlive = false;
-                    }
+                    keepAlive=false;
+                    JOptionPane.showConfirmDialog(gameWindow,"Game over");
                 }
                 if (msg.sendAnswer()) {
                     gameWindow.setActive(true);

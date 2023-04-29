@@ -11,7 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server2 implements Runnable, ButtonObserver {
-    private String hostName = "localhost";
+
     private int portNumber = 6602;
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -27,7 +27,6 @@ public class Server2 implements Runnable, ButtonObserver {
     public Server2(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
         keepAlive = true;
-        JOptionPane.showConfirmDialog(gameWindow, "Waiting for clients...");
         setupConnection();
         serverId = "You";
         game = new Game(serverId, "The other guy");
@@ -36,16 +35,16 @@ public class Server2 implements Runnable, ButtonObserver {
     @Override
     public void run() {
         while (keepAlive) {
-            if(game.gameOver){
+            if (game.gameOver) {
                 try {
                     sendUpdatetoClient(false);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                if(JOptionPane.showConfirmDialog(gameWindow,"Game over"+ game.getCurrentPlayer() +" won. Want to play again?","Confirm",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+                if (JOptionPane.showConfirmDialog(gameWindow, "Game over" + game.getCurrentPlayer() + " won. Want to play again?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     game.resetGame();
                     gameWindow.updateMatrix(game.getPlayingField());
-                }else{
+                } else {
                     keepAlive = false;
                 }
             }
