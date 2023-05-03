@@ -3,12 +3,19 @@ package App;
 import Gui.GameWindow.GameWindow;
 import Gui.StartWindow.SelectionWindow;
 import model.Game;
+import network.WirelessDisplay;
 import network.Client2;
 import network.Server2;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,18 +32,83 @@ public class App implements AppStarter {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void startServer(){
+    public void startServer() {
         mainFrame.remove(start);
         gameWindow = new GameWindow();
-        JOptionPane.showMessageDialog(mainFrame, "Your ip is: " + getIPAddress() +
-                " \n Click ok to start the Server");
-        Server2 server = new Server2(gameWindow);
+        int result = JOptionPane.showConfirmDialog(mainFrame, "Do you want to connect a Wireless Display to the Server ?");
+        if (result == JOptionPane.YES_OPTION) {
+            SwingWorker<List<Map<String, String>>, Void> worker = new SwingWorker<List<Map<String, String>>, Void>() {
+                private JDialog searchingDialog;
+
+                @Override
+                protected List<Map<String, String>> doInBackground() throws Exception {
+                    searchingDialog = new JDialog(mainFrame, "Searching...");
+                    searchingDialog.setLocationRelativeTo(mainFrame);
+                    searchingDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+                    JProgressBar progressBar = new JProgressBar();
+                    progressBar.setIndeterminate(true);
+                    searchingDialog.add(progressBar);
+                    searchingDialog.pack();
+                    searchingDialog.setVisible(true);
+
+                    return WirelessDisplay.findESPs(false);
+                }
+
+                @Override
+                protected void done() {
+                    searchingDialog.dispose();
+                    try {
+                        List<Map<String, String>> espList = get();
+                        if (espList.isEmpty()) {
+                            JOptionPane.showMessageDialog(mainFrame, "No Displays Found", "ESP Discovery App", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            String[] espNames = espList.stream().map(espMap -> espMap.get("name")).toArray(String[]::new);
+                            JComboBox<String> espComboBox = new JComboBox<>(espNames);
+
+                            JButton connectButton = new JButton("Connect");
+
+                            JOptionPane optionPane = new JOptionPane();
+                            JPanel panel = new JPanel(new FlowLayout());
+                            optionPane.setMessageType(JOptionPane.PLAIN_MESSAGE);
+
+                            JDialog dialog = optionPane.createDialog(mainFrame, "ESP Discovery App");
+                            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                            connectButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    int selectedIndex = espComboBox.getSelectedIndex();
+                                    Map<String, String> selectedESP = espList.get(selectedIndex);
+                                    String espIp = selectedESP.get("ipAddress");
+                                    WirelessDisplay.connectToESP(espIp, false);
+                                    dialog.dispose();
+                                    startServerWithEspIp(espIp);
+                                }
+                            });
+                            panel.add(espComboBox);
+                            panel.add(connectButton);
+                            optionPane.setMessage(panel);
+                            dialog.setVisible(true);
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            };
+            worker.execute();
+        } else {
+            startServerWithEspIp(null);
+        }
+    }
+
+    private void startServerWithEspIp(String espIp) {
+        JOptionPane.showMessageDialog(mainFrame, "Your ip is: " + getIPAddress() + " \n Click ok to start the Server");
+        Server2 server = new Server2(gameWindow, espIp);
         gameWindow.subscribeToButtons(server);
-        Thread serverThread= new Thread(server);
+        Thread serverThread = new Thread(server);
         mainFrame.add(gameWindow);
         mainFrame.pack();
         serverThread.start();
-
     }
 
     public void startClient(){
