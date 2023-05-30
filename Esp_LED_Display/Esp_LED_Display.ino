@@ -4,8 +4,8 @@
 #include <ESP8266mDNS.h>
 #include <Adafruit_NeoPixel.h>
 
-const char* ssid = "Wer das liest ist doof";
-const char* password = "magazine_rectangle_stargazer_gesture";
+const char* ssid = "WIFI NAME HERE";
+const char* password = "WIFI PASSWORD HERE";
 
 ESP8266WebServer server(80);
 Adafruit_NeoPixel strip(42, D5, NEO_GRB + NEO_KHZ800);
@@ -70,7 +70,7 @@ void setup() {
     Serial.println("Received payload: " + payload);
 
     // Parse JSON payload
-    const size_t capacity = JSON_ARRAY_SIZE(42) + 42*JSON_OBJECT_SIZE(3);
+    const size_t capacity = JSON_ARRAY_SIZE(43) + 43*JSON_OBJECT_SIZE(3);
     DynamicJsonDocument doc(capacity);
     DeserializationError error = deserializeJson(doc, payload);
     if (error) {

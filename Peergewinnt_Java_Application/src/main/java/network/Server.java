@@ -10,11 +10,12 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server2 implements Runnable, ButtonObserver {
+public class Server implements Runnable, ButtonObserver {
 
     private int portNumber = 6602;
     private ServerSocket serverSocket;
     private Socket clientSocket;
+    private String espIp;
 
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -24,7 +25,8 @@ public class Server2 implements Runnable, ButtonObserver {
     private int lastMove = -1;
     private boolean keepAlive;
 
-    public Server2(GameWindow gameWindow) {
+    public Server(GameWindow gameWindow, String espIp) {
+        this.espIp = espIp;
         this.gameWindow = gameWindow;
         keepAlive = true;
         setupConnection();
@@ -50,6 +52,7 @@ public class Server2 implements Runnable, ButtonObserver {
             }
             gameWindow.updateMatrix(game.getPlayingField());
             if (game.getCurrentPlayer().equalsIgnoreCase(serverId)) {
+                // Player move
                 gameWindow.setActive(true);
                 while (lastMove == -1) {
                     try {
@@ -62,16 +65,23 @@ public class Server2 implements Runnable, ButtonObserver {
                     game.move(lastMove);
                     lastMove = -1;
                     gameWindow.setActive(false);
+                    // Send updated game state to the ESP
+                    String data = game.getPlayingFieldAsJson();
+                    sendDataToESP(data);
                 } catch (InvalidMoveException e) {
                     JOptionPane.showConfirmDialog(gameWindow, e.getMessage());
                 }
             } else {
+                // Opponent move
                 try {
                     sendUpdatetoClient(true);
                     DTOToServer ans = (DTOToServer) in.readObject();
                     game.move(ans.row());
                     gameWindow.updateMatrix(game.getPlayingField());
                     sendUpdatetoClient(false);
+                    // Send updated game state to the ESP
+                    String data = game.getPlayingFieldAsJson();
+                    sendDataToESP(data);
                 } catch (Exception ignored) {
                 }
             }
@@ -93,6 +103,18 @@ public class Server2 implements Runnable, ButtonObserver {
         }
     }
 
+    private void sendDataToESP(String data) {
+        try {
+            Socket espSocket = new Socket(espIp, 80);
+            PrintWriter out = new PrintWriter(espSocket.getOutputStream(), true);
+            out.print(data);
+            out.flush();
+            espSocket.close();
+        } catch (IOException e) {
+            // Handle the exception if the connection to the ESP fails
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void notify(int selection) {

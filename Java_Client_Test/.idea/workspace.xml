@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aaa7136a-bb09-4fed-a8e1-1c408c58e665" name="Changes" comment="change the network to work better">
+      <change beforePath="$PROJECT_DIR$/../Esp_LED_Display/Esp_LED_Display.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../Esp_LED_Display/Esp_LED_Display.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/empty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/App/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/App/AppStarter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/ButtonObserver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/GameWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/Matrix/GameMatrix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/Matrix/GameMatrixInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/Matrix/GamePanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/Matrix/MatrixInputButton.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/GameWindow/SideBar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/Renderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/StartWindow/ConnectionButtonPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Gui/StartWindow/SelectionWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Color.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/InvalidMoveException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Observer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/PlayingField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/Client2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/DTOToClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/DTOToServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/Server2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/WirelessDisplay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EspDiscovery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EspDiscoveryGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PeergewinntStartScreen.java" beforeDir="false" />
+    </list>
+    <list id="1dffa81e-b840-4b4c-8810-6cb4d01715e7" name="Changes by User" comment="Changes by User" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OSARX4INVeDafit6EuaM51JFeO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "add__wireless__display",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/norma/Coding/peergewinnt/Peergewinnt_Java_Application",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="network" />
+      <recent name="Gui.StartWindow" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Program">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="Peergewinnt_Java_Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="network.Main" />
+      <module name="Peergewinnt_Java_Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="network.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Program" />
+      <module name="Peergewinnt_Java_Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="serverDude.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="serverDude.Main" />
+      <module name="Peergewinnt_Java_Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="serverDude.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Program" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.serverDude.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aaa7136a-bb09-4fed-a8e1-1c408c58e665" name="Changes" comment="" />
+      <created>1681543601249</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681543601249</updated>
+      <workItem from="1681543602408" duration="1470000" />
+      <workItem from="1681545085097" duration="12383000" />
+      <workItem from="1681565474437" duration="137000" />
+      <workItem from="1681565627547" duration="12000" />
+      <workItem from="1681565651400" duration="10624000" />
+      <workItem from="1683129531351" duration="3727000" />
+      <workItem from="1685474381942" duration="1582000" />
+      <workItem from="1685476385111" duration="69000" />
+    </task>
+    <task id="LOCAL-00001" summary="bisschen geändert">
+      <created>1681564817686</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681564817686</updated>
+    </task>
+    <task id="LOCAL-00002" summary="aaaah">
+      <created>1681567905456</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681567905456</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changes by User">
+      <created>1681567909408</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681567909408</updated>
+    </task>
+    <task id="LOCAL-00004" summary="change the network to work better">
+      <created>1681581662821</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681581662821</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/add_wireless_display" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="bisschen geändert" />
+    <MESSAGE value="ääääh" />
+    <MESSAGE value="aaaah" />
+    <MESSAGE value="Changes by User" />
+    <MESSAGE value="change the network to work better" />
+    <option name="LAST_COMMIT_MESSAGE" value="change the network to work better" />
+  </component>
+</project>

@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Game {
 
     private final PlayingField playingField;
@@ -58,6 +61,34 @@ public class Game {
     public Token[][] getPlayingField(){
         return playingField.getMatrix();
     }
+
+    public String getPlayingFieldAsJson() {
+        Token[][] matrix = playingField.getMatrix();
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        List<Color> colors = new ArrayList<>();
+        for (int col = 0; col < cols; col++) {
+            for (Token[] tokens : matrix) {
+                Token token = tokens[col];
+                Color color = new Color(0, 0, 0);
+                if (token != null) {
+                    if (token == Token.X) {
+                        color = new Color(255, 0, 0);
+                    } else {
+                        color = new Color(0, 0, 255);
+                    }
+                }
+                colors.add(color);
+            }
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(colors);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void resetGame(){
         if(currentPlayer.equals(playerOne)){
             currentPlayer = playerTwo;
