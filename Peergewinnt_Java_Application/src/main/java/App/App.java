@@ -2,10 +2,9 @@ package App;
 
 import Gui.GameWindow.GameWindow;
 import Gui.StartWindow.SelectionWindow;
-import model.Game;
 import network.WirelessDisplay;
-import network.Client2;
-import network.Server2;
+import network.Client;
+import network.Server;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +102,7 @@ public class App implements AppStarter {
 
     private void startServerWithEspIp(String espIp) {
         JOptionPane.showMessageDialog(mainFrame, "Your ip is: " + getIPAddress() + " \n Click ok to start the Server");
-        Server2 server = new Server2(gameWindow, espIp);
+        Server server = new Server(gameWindow, espIp);
         gameWindow.subscribeToButtons(server);
         Thread serverThread = new Thread(server);
         mainFrame.add(gameWindow);
@@ -124,7 +123,7 @@ public class App implements AppStarter {
         gameWindow.setActive(false);
         mainFrame.add(gameWindow);
         mainFrame.pack();
-        Client2 client = new Client2(gameWindow,serverIP);
+        Client client = new Client(gameWindow,serverIP);
         gameWindow.subscribeToButtons(client);
         Thread clientThread = new Thread(client);
         clientThread.start();

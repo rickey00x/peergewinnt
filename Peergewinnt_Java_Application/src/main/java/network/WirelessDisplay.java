@@ -37,8 +37,6 @@ public class WirelessDisplay {
                 JmDNS jmdns = JmDNS.create();
                 ServiceInfo[] serviceInfos = jmdns.list("_http._tcp.local.");
 
-                System.out.println("Found " + serviceInfos.length + " ESP(s) on the network.");
-
                 for (int i = 0; i < serviceInfos.length; i++) {
                     ServiceInfo serviceInfo = serviceInfos[i];
                     if (serviceInfo.getName().startsWith("esp8266")) {

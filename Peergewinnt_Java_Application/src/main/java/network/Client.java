@@ -2,13 +2,12 @@ package network;
 
 import Gui.GameWindow.ButtonObserver;
 import Gui.GameWindow.GameWindow;
-import model.Token;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
-public class Client2 implements Runnable, ButtonObserver {
+public class Client implements Runnable, ButtonObserver {
 
     GameWindow gameWindow;
     boolean keepAlive;
@@ -19,7 +18,7 @@ public class Client2 implements Runnable, ButtonObserver {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-    public Client2(GameWindow gameWindow, String hostName) {
+    public Client(GameWindow gameWindow, String hostName) {
         this.hostName = hostName;
         setUpConnection();
         this.gameWindow = gameWindow;

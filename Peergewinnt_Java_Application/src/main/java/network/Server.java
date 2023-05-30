@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server2 implements Runnable, ButtonObserver {
+public class Server implements Runnable, ButtonObserver {
 
     private int portNumber = 6602;
     private ServerSocket serverSocket;
@@ -25,7 +25,7 @@ public class Server2 implements Runnable, ButtonObserver {
     private int lastMove = -1;
     private boolean keepAlive;
 
-    public Server2(GameWindow gameWindow, String espIp) {
+    public Server(GameWindow gameWindow, String espIp) {
         this.espIp = espIp;
         this.gameWindow = gameWindow;
         keepAlive = true;
